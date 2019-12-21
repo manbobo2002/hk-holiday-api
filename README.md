@@ -31,9 +31,10 @@
 $ git clone https://github.com/manbobo2002/CNN_flask.git
 ```
 
-### Download the model
+### Download the model and move to the model dir
 ```shell
 $ wget https://ustfypcnn.s3.us-east-2.amazonaws.com/inception.h5
+$ mv inception.h5 ./CNN_flask/models/
 ```
 
 ### Install requirements
