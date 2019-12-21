@@ -19,7 +19,7 @@
 :point_down:Screenshot:
 
 <p align="center">
-  <img src="https://s18.postimg.cc/l01x6fn3d/demo1.png" width="600px" alt="">
+  <img src="https://storage.googleapis.com/ustfypcnn/model_api.PNG" width="600px" alt="">
 </p>
 
 ------------------
