@@ -37,16 +37,24 @@ print('Model loaded. Check http://127.0.0.1:5000/')
 def model_predict(img_path, model):
     img = image.load_img(img_path, target_size=(224, 224))
 
+    test_image = image.img_to_array(img)
+    test_image = np.expand_dims(test_image, axis = 0)
+    result = model.predict(test_image)
+    if result[0][0] == 1:
+        preds = 'dog'
+    else:
+        preds = 'cat'
+    print(preds)
     # Preprocessing the image
-    x = image.img_to_array(img)
+    # x = image.img_to_array(img)
     # x = np.true_divide(x, 255)
-    x = np.expand_dims(x, axis=0)
+    # x = np.expand_dims(x, axis=0)
 
     # Be careful how your trained model deals with the input
     # otherwise, it won't make correct prediction!
-    x = preprocess_input(x, mode='caffe')
+    # x = preprocess_input(x, mode='caffe')
 
-    preds = model.predict(x)
+    # preds = model.predict(x)
     return preds
 
 
@@ -73,9 +81,9 @@ def upload():
 
         # Process your result for human
         # pred_class = preds.argmax(axis=-1)            # Simple argmax
-        pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
-        result = str(pred_class[0][0][1])               # Convert to string
-        return result
+        # pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
+        # result = str(pred_class[0][0][1])               # Convert to string
+        return preds
     return None
 
 
