@@ -64,7 +64,7 @@ $ python app.py
 Open http://localhost:5000 and have fun. :smiley:
 
 <p align="center">
-  <img src="https://s18.postimg.cc/5ekln1vvt/demo2.gif" width="600px" alt="">
+  <img src="https://storage.googleapis.com/ustfypcnn/demo.gif" width="600px" alt="">
 </p>
 
 ------------------
