@@ -6,3 +6,6 @@ gevent
 pillow
 h5py
 tensorflow
+pandas
+lxml.html
+requests

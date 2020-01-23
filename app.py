@@ -6,10 +6,9 @@ import glob
 import re
 import numpy as np
 
-# Keras
-from keras.applications.imagenet_utils import preprocess_input, decode_predictions
-from keras.models import load_model
-from keras.preprocessing import image
+import requests
+import lxml.html as lh
+import pandas as pd
 
 # Flask utils
 from flask import Flask, redirect, url_for, request, render_template
@@ -27,12 +26,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/predict', methods=['GET', 'POST'])
-def upload():
-    if request.method == 'POST':
-        # Get the file from post request
-        print("POST")
-    return None
+@app.route("/post_submit", methods=['POST'])
+def submit():
+    print("here")
+    year = request.args.get('year-input')
+    print (year)
+    # url='https://www.gov.hk/en/about/abouthk/holiday/'.join(year)+'htm'
+    return year
 
 
 if __name__ == '__main__':
