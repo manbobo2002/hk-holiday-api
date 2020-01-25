@@ -1,41 +1,39 @@
 {% extends "base.html" %} {% block content %}
 <script type="text/javascript">
-    
-    
-$('#btn-get').click(function () {
-    
+  $(document).ready(function () {
+  
+    $('#btn-get').click(function () {
         var result = { };
         $.each($('form').serializeArray(), function() {
             result[this.name] = this.value;
         });
-        data='{"yearinput" : "' + result.yearinput+'"}'
-        alert(data);
-        var settings = {
-          "url": "https://hk-holiday-api.herokuapp.com/post_submit",
-          "method": "POST",
-          "timeout": 0,
-          "headers": {
-            "Content-Type": "application/json"
-          },
-          "data": JSON.stringify(data),
-          //"data": JSON.stringify({"yearinput":"2009"}),
-        };
-        $.ajax(settings).done(function (response) {
-          console.log(response);
+        var form_data='{"yearinput":"' + result.yearinput+'"}';
+        
+        $.ajax({
+            method: 'POST',
+            url: '/post_submit',
+            data: form_data,
+            contentType: "application/json",
+            success: function (data) {
+                // Get and display the result
+                alert(data);
+                console.log(data);
+            },
         });
+    });
+
+});
         
 </script>
 
 <h2>Check Holiday By Year</h2>
 <div>
     
-    <form method="POST" action="/post_submit">
+    <form>
         <label for="yearinput" class="yearlabel">Year:</label>
         <input type="number" name="yearinput" min="2007" step="1"><br>
-        <button type="submit" class="btn btn-primary btn-lg " id="btn-get">Get!</button>
+        <button class="btn btn-primary btn-lg " id="btn-get">Get!</button>
     </form>
-    
-  <div id=result></div>
     
 
 </div>

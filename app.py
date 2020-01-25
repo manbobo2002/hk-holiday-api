@@ -29,7 +29,7 @@ def index():
 @app.route("/post_submit", methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
-        url = 'https://www.gov.hk/en/about/abouthk/holiday/'+request.json['yearinput']    +'.htm'
+        url = 'https://www.gov.hk/en/about/abouthk/holiday/'+request.json['yearinput']+'.htm'
         html = requests.get(url).content
         df_list = pd.read_html(html)
         df = df_list[0]
@@ -37,7 +37,7 @@ def submit():
         print(df)
         # Indication of expected JSON string format 
         return df.to_json(orient ='index')
-    return render_template('index.html')
+    return render_template('index.html/?'+request.json['yearinput'])
 
 
 if __name__ == '__main__':
