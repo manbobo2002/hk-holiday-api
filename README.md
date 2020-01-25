@@ -10,8 +10,17 @@ $ git clone https://github.com/manbobo2002/hk-holiday-api.git
 $ pip install -r requirements.txt
 ```
 
+### Start
+```shell
+$ python3 app.py
+```
+
 # How to use
 
+## GUI
+```shell
+https://hk-holiday-api.herokuapp.com
+```
 ## Post (e.g. the public holiday of 2009)
 ### Note that the minimum year is 2007 provided by HK gov
 
