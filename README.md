@@ -13,6 +13,7 @@ $ pip install -r requirements.txt
 # How to use
 
 ## Post (e.g. the public holiday of 2009)
+### Note that the minimum year is 2007 provided by HK gov
 
 ### cURL
 ```shell
