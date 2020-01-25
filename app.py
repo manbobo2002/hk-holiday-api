@@ -26,18 +26,16 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/post_submit", methods=['GET', 'POST'])
+@app.route("/post_submit", methods=['POST'])
 def submit():
-    if request.method == 'POST':
-        url = 'https://www.gov.hk/en/about/abouthk/holiday/'+request.json['yearinput']+'.htm'
-        html = requests.get(url).content
-        df_list = pd.read_html(html)
-        df = df_list[0]
-        df = df.drop(df.columns[[0]],axis=0)
-        print(df)
-        # Indication of expected JSON string format 
-        return df.to_json(orient ='index')
-    return render_template('index.html/?'+request.json['yearinput'])
+    url = 'https://www.gov.hk/en/about/abouthk/holiday/'+request.json['yearinput'] +'.htm'
+    html = requests.get(url).content
+    df_list = pd.read_html(html)
+    df = df_list[0]
+    df = df.drop(df.columns[[0]],axis=0)
+    print(df)
+    # Indication of expected JSON string format 
+    return df.to_json(orient ='index')
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% block content %}
+
 <script type="text/javascript">
   $(document).ready(function () {
   
@@ -8,16 +9,17 @@
             result[this.name] = this.value;
         });
         var form_data='{"yearinput":"' + result.yearinput+'"}';
-        
         $.ajax({
             method: 'POST',
             url: '/post_submit',
             data: form_data,
+            async: false,
             contentType: "application/json",
-            success: function (data) {
+            success: function (msg) {
                 // Get and display the result
-                alert(data);
-                console.log(data);
+                alert(msg);
+                console.log('Success!');
+                console.log(msg);
             },
         });
     });
@@ -25,7 +27,6 @@
 });
         
 </script>
-
 <h2>Check Holiday By Year</h2>
 <div>
     
@@ -34,8 +35,7 @@
         <input type="number" name="yearinput" min="2007" step="1"><br>
         <button class="btn btn-primary btn-lg " id="btn-get">Get!</button>
     </form>
-    
-
 </div>
+
 
 {% endblock %}
