@@ -1,40 +1,7 @@
-# Deploy Keras Model with Flask as Web App in 10 Minutes
-
-[![](https://img.shields.io/badge/python-2.7%2C%203.5%2B-green.svg)]()
-[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
-
-> A pretty and customizable web app to deploy your DL model with ease
-
-------------------
-
-## Getting started in 10 minutes
-
-- Clone this repo 
-- Download the model
-- Install requirements
-- Run the script
-- Check http://localhost:5000
-- Done! :tada:
-
-:point_down:Screenshot:
-
-<p align="center">
-  <img src="https://storage.googleapis.com/ustfypcnn/model_api.PNG" width="600px" alt="">
-</p>
-
-------------------
-
-## Local Installation
-
+# How to install
 ### Clone the repo
 ```shell
-$ git clone https://github.com/manbobo2002/CNN_flask.git
-```
-
-### Download the model and move to the model dir
-```shell
-$ wget https://ustfypcnn.s3.us-east-2.amazonaws.com/inception.h5
-$ mv inception.h5 ./CNN_flask/models/
+$ git clone https://github.com/manbobo2002/hk-holiday-api.git
 ```
 
 ### Install requirements
@@ -43,89 +10,133 @@ $ mv inception.h5 ./CNN_flask/models/
 $ pip install -r requirements.txt
 ```
 
-Make sure you have the following installed:
-- tensorflow
-- keras
-- flask
-- pillow
-- h5py
-- gevent
+# How to use
 
-### Run with Python
+## Post (e.g. the public holiday of 2009)
 
-Python 2.7 or 3.5+ are supported and tested.
-
+### cURL
 ```shell
-$ python app.py
+$ curl --location --request POST 'https://hk-holiday-api.herokuapp.com/post_submit' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "yearinput": "2009"
+}'
 ```
 
-### Play
+### HTTP
+```shell
+POST /post_submit HTTP/1.1
+Host: hk-holiday-api.herokuapp.com
+Content-Type: application/json
 
-Open http://localhost:5000 and have fun. :smiley:
-
-<p align="center">
-  <img src="https://s18.postimg.cc/5ekln1vvt/demo2.gif" width="600px" alt="">
-</p>
-
-------------------
-
-## Customization
-
-### Use your own model
-
-Place your trained `.h5` file saved by `model.save()` under models directory.
-
-Check the [commented code](https://github.com/mtobeiyf/keras-flask-deploy-webapp/blob/master/app.py#L25) in app.py.
-
-
-### Use other pre-trained model
-
-See [Keras applications](https://keras.io/applications/) for more available models such as DenseNet, MobilNet, NASNet, etc.
-
-Check [this section](https://github.com/mtobeiyf/keras-flask-deploy-webapp/blob/master/app.py#L25) in app.py.
-
-### UI Modification
-
-Modify files in `templates` and `static` directory.
-
-`index.html` for the UI and `main.js` for all the behaviors
-
-## Deployment
-
-To deploy it for public use, you need to have a public **linux server**.
-
-### Run the app
-
-Run the script and hide it in background with `tmux` or `screen`.
-```
-$ python app.py
-```
-
-You can also use gunicorn instead of gevent
-```
-$ gunicorn -b 127.0.0.1:5000 app:app
-```
-
-More deployment options, check [here](http://flask.pocoo.org/docs/0.12/deploying/wsgi-standalone/)
-
-### Set up Nginx
-
-To redirect the traffic to your local app.
-Configure your Nginx `.conf` file.
-```
-server {
-    listen  80;
-
-    client_max_body_size 20M;
-
-    location / {
-        proxy_pass http://127.0.0.1:5000;
-    }
+{
+  "yearinput": "2009"
 }
 ```
 
-## More resources
+### Python
+```shell
+import requests
 
-Check Siraj's ["How to Deploy a Keras Model to Production"](https://youtu.be/f6Bf3gl4hWY) video. The corresponding [repo](https://github.com/llSourcell/how_to_deploy_a_keras_model_to_production).
+url = "https://hk-holiday-api.herokuapp.com/post_submit"
 
-[Building a simple Keras + deep learning REST API](https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html)
+payload = "{\r\n  \"yearinput\": \"2009\"\r\n}"
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data = payload)
+
+print(response.text.encode('utf8'))
+```
+
+# Response
+```shell
+{
+    "1": {
+        "0": "The first day of January",
+        "1": "1 January",
+        "2": "Thursday"
+    },
+    "2": {
+        "0": "Lunar New Year’s Day",
+        "1": "26 January",
+        "2": "Monday"
+    },
+    "3": {
+        "0": "The second day of the Lunar New Year",
+        "1": "27 January",
+        "2": "Tuesday"
+    },
+    "4": {
+        "0": "The third day of the Lunar New Year",
+        "1": "28 January",
+        "2": "Wednesday"
+    },
+    "5": {
+        "0": "Ching Ming Festival",
+        "1": "4 April",
+        "2": "Saturday"
+    },
+    "6": {
+        "0": "Good Friday",
+        "1": "10 April",
+        "2": "Friday"
+    },
+    "7": {
+        "0": "The day following Good Friday",
+        "1": "11 April",
+        "2": "Saturday"
+    },
+    "8": {
+        "0": "Easter Monday",
+        "1": "13 April",
+        "2": "Monday"
+    },
+    "9": {
+        "0": "Labour Day",
+        "1": "1 May",
+        "2": "Friday"
+    },
+    "10": {
+        "0": "The Buddha’s Birthday",
+        "1": "2 May",
+        "2": "Saturday"
+    },
+    "11": {
+        "0": "Tuen Ng Festival",
+        "1": "28 May",
+        "2": "Thursday"
+    },
+    "12": {
+        "0": "Hong Kong Special Administrative Region Establishment Day",
+        "1": "1 July",
+        "2": "Wednesday"
+    },
+    "13": {
+        "0": "National Day",
+        "1": "1 October",
+        "2": "Thursday"
+    },
+    "14": {
+        "0": "Chinese Mid-Autumn Festival",
+        "1": "3 October",
+        "2": "Saturday"
+    },
+    "15": {
+        "0": "Chung Yeung Festival",
+        "1": "26 October",
+        "2": "Monday"
+    },
+    "16": {
+        "0": "Christmas Day",
+        "1": "25 December",
+        "2": "Friday"
+    },
+    "17": {
+        "0": "The first weekday after Christmas Day",
+        "1": "26 December",
+        "2": "Saturday"
+    }
+}
+```
