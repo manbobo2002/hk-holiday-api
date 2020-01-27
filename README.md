@@ -59,6 +59,32 @@ response = requests.request("POST", url, headers=headers, data = payload)
 
 print(response.text.encode('utf8'))
 ```
+### Python to get this year holiday with %Y-%m-%d format
+```shell
+import requests
+import datetime
+import re
+import time
+import pandas as pd
+
+url = "https://hk-holiday-api.herokuapp.com/post_submit"
+year = str(datetime.date.today().year)
+Date=[]
+payload = "{"+'\r\n  \"yearinput\": \"{}\"\r\n'.format(year)+"}"
+headers = {
+  'Content-Type': 'application/json'
+}
+
+res = requests.post(url=url, headers=headers, data = payload)
+res = res.json() 
+for i in res:
+    jdata=res["{}".format(i)]["1"]
+    day=str([int(s) for s in jdata.split() if s.isdigit()][0])
+    mon = "".join(re.split("[^a-zA-Z]*", jdata)) 
+    mon = str(time.strptime(mon, "%B").tm_mon)
+    Date.append(pd.to_datetime(str(year)+"-"+mon+"-"+day,format='%Y-%m-%d'))
+print(Date)
+```
 
 # Response
 ```shell
